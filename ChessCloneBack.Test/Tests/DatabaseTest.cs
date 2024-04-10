@@ -44,17 +44,40 @@ namespace ChessCloneBack.Test.Tests
 
                 // modifications of database go here
                 UserRepository repo = new(context);
-                repo.Add( new User { 
-                    UserName = "Larry",
+                Assert.Throws<Microsoft.EntityFrameworkCore.DbUpdateException>(() =>
+                    repo.Add(new User
+                    {
+                        UserName = "Larry",
+                        PasswordSaltHash = [0]
+                    }));
+
+                context.Database.RollbackTransaction();
+            }
+        }
+        [Fact]
+        public void AddUserWithNewName_Passes()
+        {
+            using (DatabaseContext context = _fixture.CreateContext())
+            {
+                // start transaction to make sure changes are not committed to DB and don't interfere with other tests
+                context.Database.BeginTransaction();
+
+                // modifications of database go here
+                UserRepository repo = new(context);
+                repo.Add(new User
+                {
+                    UserName = "Curly",
                     PasswordSaltHash = [0]
                 });
-
+                
                 // clear change tracker to avoid conflicts between actually-existing object in database and object in memory
                 context.ChangeTracker.Clear();
 
                 // readonly events modified above go here
-                User? result = context.Users.SingleOrDefault(o => o.UserName == "Larry");
-                Assert.NotEqual([0], result.PasswordSaltHash);
+                User? result = context.Users.SingleOrDefault(o => o.UserName == "Curly");
+                Assert.Equal([0], result?.PasswordSaltHash);
+
+                context.Database.RollbackTransaction();
             }
         }
     }

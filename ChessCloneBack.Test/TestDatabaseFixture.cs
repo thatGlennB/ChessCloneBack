@@ -5,7 +5,7 @@ namespace ChessCloneBack.Test
 {
     public class TestDatabaseFixture
     {
-        private const string ConnectionString = @"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ChessClone;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;Persist Security Info=True";
+        private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ChessClone;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
         private static readonly object _lock = new();
         private static bool _databaseInitialized;
         public TestDatabaseFixture()
