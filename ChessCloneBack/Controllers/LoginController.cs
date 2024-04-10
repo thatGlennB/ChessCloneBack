@@ -25,10 +25,15 @@ namespace ChessCloneBack.Controllers
         [HttpPost]
         public IActionResult Register([FromBody] UserModel data)
         {
-            byte[] output = AuthenticationUtil.GetPasswordHash(data.Password);
-            Console.WriteLine();
-            // TODO: validate input
-            return Ok(String.Join(",",output.Select(o => o.ToString())));
+            try
+            {
+                _auth.AddNewCredentials(data.UserName, data.Password);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+            return Ok();
         }
 
         [AllowAnonymous]
