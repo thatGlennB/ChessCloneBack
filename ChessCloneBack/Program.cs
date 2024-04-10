@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 #region JWT Authentication
+if (builder.Configuration["Jwt:Key"] == null)
+    throw new NullReferenceException("Null configuration value: no Jwt Key value set.");
 builder.Services.AddAuthentication()
 .AddJwtBearer(options =>
 {
@@ -22,7 +24,7 @@ options.TokenValidationParameters = new TokenValidationParameters
     ValidateIssuerSigningKey = true,
     ValidIssuer = builder.Configuration["Jwt:Issuer"],
     ValidAudience = builder.Configuration["Jwt:Audience"],
-    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? ""))
 };
 });
 #endregion

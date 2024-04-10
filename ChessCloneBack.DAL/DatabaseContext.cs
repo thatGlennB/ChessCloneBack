@@ -7,5 +7,13 @@ namespace ChessCloneBack.DAL
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
         public virtual DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            // Unique UserName property in database
+            builder.Entity<User>()
+                .HasIndex(u => u.UserName)
+                .IsUnique();
+        }
     }
 }
