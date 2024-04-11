@@ -35,4 +35,10 @@
     <ProjectReference Include="..\ChessCloneBack.DAL\ChessCloneBack.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -46,7 +46,7 @@ namespace ChessCloneBack.Test.Tests
         public void NewUser_AddNewCredentials_NoException()
         {
             Exception exc = Record.Exception(() =>
-               _service.AddNewCredentials(TestUtil.ExistingUserName, TestUtil.FakePassword));
+               _service.AddNewCredentials(TestUtil.NewUserName, TestUtil.FakePassword));
             Assert.Null(exc);
         }
         [Fact]
