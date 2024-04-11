@@ -12,15 +12,12 @@ namespace ChessCloneBack.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class LoginController : Controller
+    public class UserAccessController : Controller
     {
-        private IConfiguration _config;
         private IAuthenticationService _auth;
-        public LoginController(IConfiguration config, IAuthenticationService auth)
-        {
-            _config = config;
-            _auth = auth;
-        }
+        public UserAccessController(IAuthenticationService auth)
+            => _auth = auth;
+
         [AllowAnonymous]
         [HttpPost]
         public IActionResult Register([FromBody] UserModel data)
@@ -48,6 +45,11 @@ namespace ChessCloneBack.Controllers
             return Ok(new { token = result });
 
         }
-        
+        [AllowAnonymous]
+        [HttpGet("available")]
+        public IActionResult IsUsernameAvailable([FromQuery] string username) 
+        {
+            throw new NotImplementedException();
+        }
     }
 }
