@@ -7,7 +7,7 @@ namespace ChessCloneBack.BLL.Infrastructure
 {
     public static class AuthenticationUtil
     {
-        private static int _keySize = 16;
+        private static int _keySize = 64;
         private static int _iterations = 350000;
         private static HashAlgorithmName _hashAlgorithm = HashAlgorithmName.SHA512;
         
@@ -18,14 +18,15 @@ namespace ChessCloneBack.BLL.Infrastructure
                 throw new ArgumentException($"Invalid salted hash length: record's salted hash is too short to be evaluated", nameof(saltedHash));
             }
 
-            byte[] salt = saltedHash.Skip(_keySize - 1).Take(_keySize).ToArray();
+            byte[] salt = saltedHash.Skip(_keySize).Take(_keySize).ToArray();
+            byte[] hash = saltedHash.Take(_keySize).ToArray();
             byte[] input = Rfc2898DeriveBytes.Pbkdf2(
                 Encoding.UTF8.GetBytes(password),
                 salt,
                 _iterations,
                 _hashAlgorithm,
                 _keySize);
-            return CryptographicOperations.FixedTimeEquals(input, salt);
+            return CryptographicOperations.FixedTimeEquals(input, hash);
         }
         public static byte[] GetPasswordHash(string password)
         {

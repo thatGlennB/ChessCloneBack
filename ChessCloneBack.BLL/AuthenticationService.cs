@@ -18,7 +18,7 @@ namespace ChessCloneBack.BLL
 
         public void AddNewCredentials(string username, string password)
         {
-            if (IsNameAvailable(username))
+            if (!IsNameAvailable(username))
                 throw new ArgumentException("Username has already been taken", nameof(username));
 
             _repo.Add(new User

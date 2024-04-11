@@ -19,7 +19,7 @@ namespace ChessCloneBack.Controllers
             => _auth = auth;
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("register")]
         public IActionResult Register([FromBody] UserModel data)
         {
             try
@@ -49,7 +49,8 @@ namespace ChessCloneBack.Controllers
         [HttpGet("available")]
         public IActionResult IsUsernameAvailable([FromQuery] string username) 
         {
-            throw new NotImplementedException();
+            bool output = _auth.IsNameAvailable(username);
+            return Ok(output);
         }
     }
 }
