@@ -17,7 +17,7 @@ namespace ChessCloneBack.Test.Tests
             using (DatabaseContext context = _fixture.CreateContext()) 
             {
                 UserRepository repo = new(context);
-                User? result = repo.Get(o => o.UserName == "Larry");
+                User? result = repo.GetByUsername(o => o.UserName == "Larry");
                 Assert.NotNull(result);
             }
         }
@@ -27,7 +27,7 @@ namespace ChessCloneBack.Test.Tests
             using (DatabaseContext context = _fixture.CreateContext())
             {
                 UserRepository repo = new(context);
-                User? result = repo.Get(o => o.UserName == "Harpo");
+                User? result = repo.GetByUsername(o => o.UserName == "Harpo");
                 Assert.Null(result);
             }
         }

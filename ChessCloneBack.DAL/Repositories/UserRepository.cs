@@ -18,8 +18,8 @@ namespace ChessCloneBack.DAL.Repositories
             _dbContext.Add(user);
             _dbContext.SaveChanges();
         }
-        public User? Get(Func<User,bool> predicate) {
-            return _dbContext.Users.SingleOrDefault(predicate);
+        public User? GetByUsername(string username) {
+            return _dbContext.Users.SingleOrDefault(o => o.UserName == username);
         }
     }
 }

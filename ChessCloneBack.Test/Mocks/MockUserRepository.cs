@@ -23,7 +23,7 @@ namespace ChessCloneBack.Test.Mocks
                 throw new DbUpdateException();
         }
 
-        public User? Get(Func<User, bool> predicate)
+        public User? GetByUsername(string username)
         {
             List<User> dummyDB = new List<User>
             {
@@ -33,7 +33,7 @@ namespace ChessCloneBack.Test.Mocks
                     PasswordSaltHash = TestUtil.FakePasswordHash
                 }
             };
-            return dummyDB.SingleOrDefault(predicate);
+            return dummyDB.SingleOrDefault(o => o.UserName == username);
         }
     }
 }
