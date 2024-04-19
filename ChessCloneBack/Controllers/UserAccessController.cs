@@ -22,8 +22,9 @@ namespace ChessCloneBack.Controllers
         /// <returns>Ok if user information is valid, Bad Request if not valid (eg username is already taken)</returns>
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody] RegistrationInfoDTO data)
+        public IActionResult Register([FromBody] RegistrationInfo data)
         {
+            
             try
             {
                 _auth.AddNewCredentials(data.UserName, data.Password, data.Email, data.ChessboardTheme, data.Premium, data.Notify);
