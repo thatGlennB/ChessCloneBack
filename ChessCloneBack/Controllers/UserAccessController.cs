@@ -1,6 +1,5 @@
 ﻿using ChessCloneBack.API.DataTransferObject;
 using ChessCloneBack.BLL.Interfaces;
-using ChessCloneBack.DataTransferObject;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +9,7 @@ namespace ChessCloneBack.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserAccessController : Controller
+    public class UserAccessController : ControllerBase
     {
         private IAuthenticationService _auth;
         public UserAccessController(IAuthenticationService auth)
@@ -27,7 +26,7 @@ namespace ChessCloneBack.Controllers
         {
             try
             {
-                _auth.AddNewCredentials(data.UserName, data.Password);
+                _auth.AddNewCredentials(data.UserName, data.Password, data.Email, data.ChessboardTheme, data.Premium, data.Notify);
             }
             catch (ArgumentException e)
             {

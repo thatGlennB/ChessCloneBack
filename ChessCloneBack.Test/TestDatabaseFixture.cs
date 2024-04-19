@@ -22,7 +22,13 @@ namespace ChessCloneBack.Test
                         context.Users.Add(new User
                         {
                             UserName = "Larry",
-                            PasswordSaltHash = [1]
+                            PasswordSaltHash = [1],
+                            ELO = 800,
+                            Email = "a@b.c",
+                            Style = 0,
+                            Premium = false,
+                            PremiumExpiration = null,
+                            Notify = false
                         });
 
 

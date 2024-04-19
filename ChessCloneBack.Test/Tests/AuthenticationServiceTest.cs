@@ -36,13 +36,13 @@ namespace ChessCloneBack.Test.Tests
         public void RedundantUser_AddNewCredentials_ThrowsException()
         {
             Assert.Throws<ArgumentException>(() =>
-               _service.AddNewCredentials(TestUtil.ExistingUserName, TestUtil.FakePassword));
+               _service.AddNewCredentials(TestUtil.ExistingUserName, TestUtil.FakePassword,"a@b.c",DAL.Enums.BoardStyle.STANDARD,false, false));
         }
         [Fact]
         public void NewUser_AddNewCredentials_NoException()
         {
             Exception exc = Record.Exception(() =>
-               _service.AddNewCredentials(TestUtil.NewUserName, TestUtil.FakePassword));
+               _service.AddNewCredentials(TestUtil.NewUserName, TestUtil.FakePassword, "a@b.c", DAL.Enums.BoardStyle.STANDARD, false, false));
             Assert.Null(exc);
         }
         [Fact]

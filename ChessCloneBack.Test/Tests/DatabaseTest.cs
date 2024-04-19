@@ -17,7 +17,7 @@ namespace ChessCloneBack.Test.Tests
             using (DatabaseContext context = _fixture.CreateContext()) 
             {
                 UserRepository repo = new(context);
-                User? result = repo.GetByUsername(o => o.UserName == "Larry");
+                User? result = repo.GetByUsername("Larry");
                 Assert.NotNull(result);
             }
         }
@@ -27,7 +27,7 @@ namespace ChessCloneBack.Test.Tests
             using (DatabaseContext context = _fixture.CreateContext())
             {
                 UserRepository repo = new(context);
-                User? result = repo.GetByUsername(o => o.UserName == "Harpo");
+                User? result = repo.GetByUsername("Harpo");
                 Assert.Null(result);
             }
         }
@@ -48,7 +48,13 @@ namespace ChessCloneBack.Test.Tests
                     repo.Add(new User
                     {
                         UserName = "Larry",
-                        PasswordSaltHash = [0]
+                        PasswordSaltHash = [0],
+                        ELO = 800,
+                        Email = "a@b.c",
+                        Style = 0,
+                        Premium = false,
+                        PremiumExpiration = null,
+                        Notify = false
                     }));
 
                 context.Database.RollbackTransaction();
@@ -67,7 +73,13 @@ namespace ChessCloneBack.Test.Tests
                 repo.Add(new User
                 {
                     UserName = "Curly",
-                    PasswordSaltHash = [0]
+                    PasswordSaltHash = [0],
+                    ELO = 800,
+                    Email = "a@b.c",
+                    Style = 0,
+                    Premium = false,
+                    PremiumExpiration = null,
+                    Notify = false
                 });
                 
                 // clear change tracker to avoid conflicts between actually-existing object in database and object in memory

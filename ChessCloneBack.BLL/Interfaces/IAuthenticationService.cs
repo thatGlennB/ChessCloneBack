@@ -1,4 +1,6 @@
-﻿namespace ChessCloneBack.BLL.Interfaces
+﻿using ChessCloneBack.DAL.Enums;
+
+namespace ChessCloneBack.BLL.Interfaces
 {
     /// <summary>
     /// Defines a service for registering and authenticating clients
@@ -15,7 +17,7 @@
         /// <summary>
         /// Registers new clients in database. Throws an exception if credentials are invalid.
         /// </summary>
-        void AddNewCredentials(string username, string password);
+        void AddNewCredentials(string username, string password, string email, BoardStyle style, bool premium, bool notify);
         bool IsNameAvailable(string username);
     }
 

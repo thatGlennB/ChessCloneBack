@@ -1,6 +1,7 @@
 ﻿using ChessCloneBack.BLL.Infrastructure;
 using ChessCloneBack.BLL.Interfaces;
 using ChessCloneBack.DAL.Entities;
+using ChessCloneBack.DAL.Enums;
 using ChessCloneBack.DAL.Interfaces;
 using Microsoft.Extensions.Configuration;
 
@@ -16,7 +17,7 @@ namespace ChessCloneBack.BLL
             _config = config;
         }
 
-        public void AddNewCredentials(string username, string password)
+        public void AddNewCredentials(string username, string password, string email, BoardStyle style, bool premium, bool notify)
         {
             if (!IsNameAvailable(username))
                 throw new ArgumentException("Username has already been taken", nameof(username));
@@ -24,7 +25,13 @@ namespace ChessCloneBack.BLL
             _repo.Add(new User
             {
                 UserName = username,
-                PasswordSaltHash = AuthenticationUtil.GetPasswordHash(password)
+                PasswordSaltHash = AuthenticationUtil.GetPasswordHash(password),
+                ELO = 800,
+                Email = email,
+                Style = (int)style,
+                Premium = premium,
+                PremiumExpiration = premium ? DateTime.Now.AddDays(7) : null,
+                Notify = notify
             });
         }
 
@@ -50,7 +57,10 @@ namespace ChessCloneBack.BLL
             }
 
 
-            /// TODO: what claims do I need?
+            // TODO: what claims do I need?
+            // token for new user
+            // token for premium
+            // token during gameplay - low priority
             JWTBuilder builder = new JWTBuilder();
             builder.Key = _config["Jwt:Key"] ?? "";
             builder.Audience = _config["Jwt:Audience"] ?? "";

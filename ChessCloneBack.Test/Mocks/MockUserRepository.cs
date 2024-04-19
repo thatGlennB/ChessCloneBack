@@ -30,7 +30,13 @@ namespace ChessCloneBack.Test.Mocks
                 new User
                 {
                     UserName = TestUtil.ExistingUserName,
-                    PasswordSaltHash = TestUtil.FakePasswordHash
+                    PasswordSaltHash = TestUtil.FakePasswordHash,
+                    ELO = 800,
+                    Email = "a@b.c",
+                    Style = 0,
+                    Premium = false,
+                    PremiumExpiration = null,
+                    Notify = false
                 }
             };
             return dummyDB.SingleOrDefault(o => o.UserName == username);
