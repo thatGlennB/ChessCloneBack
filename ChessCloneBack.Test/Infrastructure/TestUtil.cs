@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChessCloneBack.Test.Infrastructure
+﻿namespace ChessCloneBack.Test.Infrastructure
 {
     public static class TestUtil
     {
@@ -13,5 +7,28 @@ namespace ChessCloneBack.Test.Infrastructure
 
         public static string ExistingUserName = "Jill";
         public static string NewUserName = "Jack";
+
+        public static User SeedUser = new User
+        {
+            UserName = "Larry",
+            PasswordSaltHash = [0],
+            ELO = 800,
+            Email = "a@b.c",
+            Style = 0,
+            Premium = false,
+            PremiumExpiration = null,
+            Notify = false
+        };
+        public static User SecondUser = new User
+        {
+            UserName = "Curly",
+            PasswordSaltHash = [0],
+            ELO = 800,
+            Email = "a@b.c",
+            Style = 0,
+            Premium = false,
+            PremiumExpiration = null,
+            Notify = false
+        };
     }
 }

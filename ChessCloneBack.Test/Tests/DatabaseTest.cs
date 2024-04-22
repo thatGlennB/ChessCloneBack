@@ -1,4 +1,5 @@
 using ChessCloneBack.DAL.Repositories;
+using ChessCloneBack.Test.Infrastructure;
 
 namespace ChessCloneBack.Test.Tests
 {
@@ -17,7 +18,7 @@ namespace ChessCloneBack.Test.Tests
             using (DatabaseContext context = _fixture.CreateContext()) 
             {
                 UserRepository repo = new(context);
-                User? result = repo.GetByUsername("Larry");
+                User? result = repo.GetByUsername(TestUtil.SeedUser.UserName);
                 Assert.NotNull(result);
             }
         }
@@ -27,7 +28,7 @@ namespace ChessCloneBack.Test.Tests
             using (DatabaseContext context = _fixture.CreateContext())
             {
                 UserRepository repo = new(context);
-                User? result = repo.GetByUsername("Harpo");
+                User? result = repo.GetByUsername(TestUtil.NewUserName);
                 Assert.Null(result);
             }
         }
@@ -45,17 +46,7 @@ namespace ChessCloneBack.Test.Tests
                 // modifications of database go here
                 UserRepository repo = new(context);
                 Assert.Throws<Microsoft.EntityFrameworkCore.DbUpdateException>(() =>
-                    repo.Add(new User
-                    {
-                        UserName = "Larry",
-                        PasswordSaltHash = [0],
-                        ELO = 800,
-                        Email = "a@b.c",
-                        Style = 0,
-                        Premium = false,
-                        PremiumExpiration = null,
-                        Notify = false
-                    }));
+                    repo.Add(TestUtil.SeedUser));
 
                 context.Database.RollbackTransaction();
             }
@@ -70,17 +61,7 @@ namespace ChessCloneBack.Test.Tests
 
                 // modifications of database go here
                 UserRepository repo = new(context);
-                repo.Add(new User
-                {
-                    UserName = "Curly",
-                    PasswordSaltHash = [0],
-                    ELO = 800,
-                    Email = "a@b.c",
-                    Style = 0,
-                    Premium = false,
-                    PremiumExpiration = null,
-                    Notify = false
-                });
+                repo.Add(TestUtil.SecondUser);
                 
                 // clear change tracker to avoid conflicts between actually-existing object in database and object in memory
                 context.ChangeTracker.Clear();

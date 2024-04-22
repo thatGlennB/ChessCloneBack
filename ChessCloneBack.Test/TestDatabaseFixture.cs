@@ -1,4 +1,5 @@
 ﻿
+using ChessCloneBack.Test.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChessCloneBack.Test
@@ -19,17 +20,7 @@ namespace ChessCloneBack.Test
                         context.Database.EnsureDeleted();
                         context.Database.EnsureCreated();
 
-                        context.Users.Add(new User
-                        {
-                            UserName = "Larry",
-                            PasswordSaltHash = [1],
-                            ELO = 800,
-                            Email = "a@b.c",
-                            Style = 0,
-                            Premium = false,
-                            PremiumExpiration = null,
-                            Notify = false
-                        });
+                        context.Users.Add(TestUtil.SeedUser);
 
 
 
