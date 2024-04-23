@@ -5,6 +5,8 @@ using ChessCloneBack.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ChessCloneBack.BLL.Interfaces;
+using ChessCloneBack.BLL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,16 +18,16 @@ if (builder.Configuration["Jwt:Key"] == null)
 builder.Services.AddAuthentication()
 .AddJwtBearer(options =>
 {
-options.TokenValidationParameters = new TokenValidationParameters
-{
-    ValidateIssuer = true,
-    ValidateAudience = true,
-    ValidateLifetime = true,
-    ValidateIssuerSigningKey = true,
-    ValidIssuer = builder.Configuration["Jwt:Issuer"],
-    ValidAudience = builder.Configuration["Jwt:Audience"],
-    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? ""))
-};
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? ""))
+    };
 });
 #endregion
 
@@ -39,6 +41,7 @@ options.TokenValidationParameters = new TokenValidationParameters
 
 #region Dependency Injection
     builder.Services.AddScoped<BLL.Interfaces.IAuthenticationService, BLL.AuthenticationService>();
+    builder.Services.AddScoped<IEmailService, EmailService>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
 #endregion
 

@@ -12,8 +12,12 @@ namespace ChessCloneBack.Controllers
     public class UserAccessController : ControllerBase
     {
         private IAuthenticationService _auth;
-        public UserAccessController(IAuthenticationService auth)
-            => _auth = auth;
+        private IEmailService _email;
+        public UserAccessController(IAuthenticationService auth, IEmailService email)
+        { 
+            _auth = auth; 
+            _email = email;
+        }
 
         /// <summary>
         /// Allows new users to sign up. NB: this method does not return a token - users must log in to receive a token.
@@ -59,6 +63,13 @@ namespace ChessCloneBack.Controllers
         {
             bool output = _auth.IsNameAvailable(username);
             return Ok(output);
+        }
+        [AllowAnonymous]
+        [HttpPost("email")]
+        public IActionResult SendEmail() 
+        {
+            _email.Send();
+            return Ok();
         }
     }
 }
