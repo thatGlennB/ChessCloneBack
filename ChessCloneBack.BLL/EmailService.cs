@@ -62,7 +62,7 @@ namespace ChessCloneBack.BLL
             string destinationAddress = "user@example.com";
 
 
-            ConfirmAccountEmailViewModel confirmAccountModel = new(destinationAddress);
+            ConfirmAccountEmailViewModel confirmAccountModel = new("www.google.com");
             string body = await _renderer.RenderViewToStringAsync("/Views/Emails/ConfirmAccount/ConfirmAccount.cshtml", confirmAccountModel);
 
             MailAddress sendAddress = new MailAddress("no-reply@chess.chess");
