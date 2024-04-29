@@ -7,6 +7,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ChessCloneBack.BLL.Interfaces;
 using ChessCloneBack.BLL;
+using ChessCloneBack.Templates.Interfaces;
+using ChessCloneBack.Templates.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,10 +41,14 @@ builder.Services.AddAuthentication()
     builder.Services.AddScoped<DatabaseContext>();
 #endregion
 
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
 #region Dependency Injection
     builder.Services.AddScoped<BLL.Interfaces.IAuthenticationService, BLL.AuthenticationService>();
     builder.Services.AddScoped<IEmailService, EmailService>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IRazorViewToStringRenderer, RazorViewToStringRenderer>();
 #endregion
 
 

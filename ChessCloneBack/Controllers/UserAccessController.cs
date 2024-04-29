@@ -66,9 +66,10 @@ namespace ChessCloneBack.Controllers
         }
         [AllowAnonymous]
         [HttpPost("email")]
-        public IActionResult SendEmail() 
+        public async Task<IActionResult> SendEmail() 
         {
-            _email.Send();
+            //_email.Send();
+            await _email.SendAsync();
             return Ok();
         }
     }

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ChessCloneBack.DAL\ChessCloneBack.DAL.csproj" />
+    <ProjectReference Include="..\ChessCloneBack.Templates\ChessCloneBack.Templates.csproj" />
   </ItemGroup>
 
 </Project>

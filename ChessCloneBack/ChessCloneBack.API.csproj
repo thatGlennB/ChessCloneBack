@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ChessCloneBack.BLL\ChessCloneBack.BLL.csproj" />
+    <ProjectReference Include="..\ChessCloneBack.Templates\ChessCloneBack.Templates.csproj" />
   </ItemGroup>
 
 </Project>
