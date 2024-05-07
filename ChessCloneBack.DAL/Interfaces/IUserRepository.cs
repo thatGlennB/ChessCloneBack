@@ -12,5 +12,6 @@ namespace ChessCloneBack.DAL.Interfaces
         /// </summary>
         void Add(User user);
         User? GetByUsername(string userName);
+        User? Get(Func<User, bool> predicate);
     }
 }

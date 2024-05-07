@@ -58,7 +58,7 @@ namespace ChessCloneBack.Controllers
 
         }
         [AllowAnonymous]
-        [HttpGet("available")]
+        [HttpGet("usernameValid")]
         public IActionResult IsUsernameAvailable([FromQuery] string username)
         {
             bool output = _auth.IsNameAvailable(username);
@@ -66,11 +66,18 @@ namespace ChessCloneBack.Controllers
         }
         [AllowAnonymous]
         [HttpPost("email")]
-        public async Task<IActionResult> SendEmail() 
+        public async Task<IActionResult> SendEmail(string redirectURL) 
         {
             //_email.Send();
             await _email.SendAsync();
             return Ok();
+        }
+        [AllowAnonymous]
+        [HttpGet("emailValid")]
+        public IActionResult IsPasswordAvailable([FromQuery] string email)
+        {
+            bool output = _auth.IsEmailAvailable(email);
+            return Ok(output);
         }
     }
 }

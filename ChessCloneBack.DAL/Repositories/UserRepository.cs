@@ -21,5 +21,9 @@ namespace ChessCloneBack.DAL.Repositories
         public User? GetByUsername(string username) {
             return _dbContext.Users.SingleOrDefault(o => o.UserName == username);
         }
+        public User? Get(Func<User, bool> predicate) 
+        {
+            return _dbContext.Users.SingleOrDefault(predicate);
+        }
     }
 }

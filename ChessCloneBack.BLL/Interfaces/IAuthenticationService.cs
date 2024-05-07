@@ -19,6 +19,7 @@ namespace ChessCloneBack.BLL.Interfaces
         /// </summary>
         void AddNewCredentials(string username, string password, string email, BoardStyle style, bool premium, bool notify);
         bool IsNameAvailable(string username);
+        bool IsEmailAvailable(string email);
     }
 
 }

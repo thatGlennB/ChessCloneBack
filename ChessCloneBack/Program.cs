@@ -51,6 +51,20 @@ builder.Services.AddRazorPages();
     builder.Services.AddScoped<IRazorViewToStringRenderer, RazorViewToStringRenderer>();
 #endregion
 
+#region CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+    name: "AppOrigins",
+    policy =>
+    {
+        policy
+        .WithOrigins("http://localhost:4200")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+#endregion
 
 
 builder.Services.AddControllers();
@@ -68,7 +82,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AppOrigins");
 
 app.UseAuthentication();
 app.UseAuthorization();

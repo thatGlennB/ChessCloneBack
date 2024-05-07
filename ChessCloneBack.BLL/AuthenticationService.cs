@@ -41,6 +41,12 @@ namespace ChessCloneBack.BLL
             return user == null;
         }
 
+        public bool IsEmailAvailable(string email) 
+        {
+            User? result = _repo.Get(o => o.Email == email);
+            return result == null;
+        }
+
         public bool IsValidCredentials(string username, string password, out string returnMessage)
         {
             if (IsNameAvailable(username))
